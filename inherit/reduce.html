@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>inherit</title>
+<script type="text/javascript" src="underscore.js"></script>
+<script type="text/javascript">
+	function initialize(){
+		var a = [1, 2, 3,4];
+		var sum = _.reduce(a, function(memo, num){ return memo + num; }, 0);
+		console.log(sum);
+		console.log(a);
+	}
+</script>
+</head>
+
+<body onload="initialize()">
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>inherit_underscore</title>
+<script type="text/javascript" src="underscore.js"></script>
+<script type="text/javascript" src="underscore-inherit.js"></script>
+<script type="text/javascript">
+	function initialize(){
+		var Animal = function () {};
+
+		
+		_.extend(Animal.prototype, {
+		  name: 'Chupacabra',
+		  sound: 'roarmeowbarkmoo',
+		  sing: function () {
+		    console.log(this.name + ' says ' + Array(5).join(this.sound));
+		  }
+		});
+		
+
+		var Dog = _.inherit(Animal, {
+		  name: 'Gunner',
+		  sound: 'woof'
+		});
+
+		var Cat = _.inherit(Animal, {
+		  name: 'Mittens',
+		  sound: 'meow'
+		});
+
+		(new Animal()).sing();
+		(new Dog()).sing();
+		(new Cat()).sing();
+	}
+</script>
+</head>
+
+<body onload="initialize()">
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>inherit</title>
+<script type="text/javascript" src="prototype.js"></script>
+<script type="text/javascript">
+	function initialize(){
+		/** new, preferred syntax **/
+		    
+		// properties are directly passed to `create` method
+		var Person = Class.create({
+		  initialize: function(name) {
+		    this.name = name;
+		  },
+		  say: function(message) {
+		    return this.name + ': ' + message;
+		  },
+		  a : "A"
+		});
+
+		var bad = Class.create({
+			'doBad' : function(){
+				console.log('stealing something!!');
+			}
+		});
+
+		var b = new bad();
+		// b.doBad();
+		// alert(b.doBad);
+
+		var c = {
+			'doBad' : function(){
+				console.log('c stealing something!!');
+			}
+		};
+		    
+		// when subclassing, specify the class you want to inherit from
+		var Pirate = Class.create(Person,c,{
+		  // redefine the speak method
+		  say: function($super, message) {
+			  alert($super);
+		    	console.log($super(message) + ', yarr!');
+		  },
+		  walk: function(){
+		  	console.log('walk');
+		  }
+		});
+		
+		//Person.prototype.a = "B";
+		console.log("Pirate.prototype.a = "  + Pirate.prototype.a);
+
+		var john = new Pirate('Long John');
+		Person.prototype.a = "B";
+		console.log("john.a = "  + john.a);
+		john.say('ahoy matey');
+		john.walk();
+		john.doBad();
+		// -> "Long John: ahoy matey, yarr!"
+	}
+	//1.使用Class.create创建类(包括继承和mixin功能)，不能多重继承，也不能继承对象,mixin只能是普通对象(不包含prototype)(和Object.extend有区别)
+	//2.子类方法中的$super代表父类方法
+	//3.必须有initialize方法(子类中如果有，要显示调用父类的initialize)
+	//4.将对象或者数组定义在initialize中初始化，不要直接作为成员，不然会被共享实例
+	//5.Object.extend可以将普通对象扩展到类上去(是class method，不是原型方法，所以方法无法被继承)
+	//6.subclasses和superclass指当前类的子类和父类
+	//7.Class#addMethods被命名成了Class.extend在1.6RC0里面，可以给原型链增加方法
+</script>
+</head>
+
+<body onload="initialize()">
+</body>
+</html>

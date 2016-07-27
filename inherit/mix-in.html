@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>mixin</title>
+<script type="text/javascript" src="prototype.js"></script>
+<script type="text/javascript">
+	function initialize(){
+		// define a module
+		var Vulnerable = {
+		  wound: function(hp) {
+		    this.health -= hp;
+		    if (this.health < 0) this.kill();
+		  },
+		  kill: function() {
+		    this.dead = true;
+		  }
+		};
+		    
+		// the first argument isn't a class object, so there is no inheritance ...
+		// simply mix in all the arguments as methods:
+		var Person = Class.create(Vulnerable, {
+		  initialize: function() {
+		    this.health = 100;
+		    this.dead = false;
+		  }
+		});
+
+		alert(Person.wound);
+		    
+		var bruce = new Person;
+		bruce.wound(55);
+		bruce.health; //-> 45
+	}
+</script>
+</head>
+
+<body onload="initialize()">
+</body>
+</html>
